@@ -56,7 +56,7 @@ def main():
         print(f"   -> {len(objetos)} objetos ({fmt(size_lote)})", flush=True)
         for o in objetos[:3]:
             k = o["Key"]
-            print(f"      - {k if len(k)<=60 else k[:30]+...+k[-27:]}", flush=True)
+            print(f"      - {k if len(k)<=60 else k[:30] + '...' + k[-27:]}", flush=True)
         if len(objetos) > 3:
             print(f"      - ... y {len(objetos)-3} mas", flush=True)
         if DRY_RUN:
