@@ -39,7 +39,7 @@ def fmt(b):
 def main():
     print("=" * 60, flush=True)
     print(f"  VACIANDO BUCKET: {S3_BUCKET}", flush=True)
-    print(f"  Batch: {BATCH_SIZE} | Modo: {DRY-RUN if DRY_RUN else REAL} | Max lotes: {MAX_LOTES or inf}", flush=True)
+    print(f"  Batch: {BATCH_SIZE} | Modo: {'DRY-RUN' if DRY_RUN else 'REAL'} | Max lotes: {MAX_LOTES or 'inf'}", flush=True)
     print("=" * 60, flush=True)
     total_b = total_e = total_bytes = lote = 0
     while True:
