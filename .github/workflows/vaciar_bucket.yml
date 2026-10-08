@@ -1,0 +1,43 @@
+name: Vaciar bucket Todus
+
+on:
+  workflow_dispatch:
+    inputs:
+      batch_size:
+        description: "Objetos por lote"
+        required: true
+        default: "100"
+        type: string
+      max_lotes:
+        description: "Max lotes (0 = sin limite)"
+        required: true
+        default: "0"
+        type: string
+      dry_run:
+        description: "Solo simular"
+        required: true
+        default: false
+        type: boolean
+
+concurrency:
+  group: vaciar-bucket
+  cancel-in-progress: false
+
+jobs:
+  vaciar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+      - run: pip install -r requirements.txt
+      - name: Ejecutar
+        env:
+          BATCH_SIZE: ${{ inputs.batch_size || 100 }}
+          MAX_LOTES: ${{ inputs.max_lotes || 0 }}
+          DRY_RUN: ${{ inputs.dry_run && true || false }}
+          DELAY_BETWEEN: "0.3"
+        run: python vaciar_bucket.py
